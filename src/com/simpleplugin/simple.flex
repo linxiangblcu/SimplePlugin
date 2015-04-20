@@ -43,3 +43,4 @@ PLUS = "+"
 
 {WHITE_SPACE}+                                  { return TokenType.WHITE_SPACE; }
 
+.                                               { return TokenType.BAD_CHARACTER; }

@@ -28,6 +28,8 @@
       <fileTypeFactory implementation="com.simpleplugin.SimpleFileTypeFactory"/>
 
       <lang.parserDefinition language="Simple" implementationClass="com.simpleplugin.SimpleParserDefinition"/>
+
+      <lang.syntaxHighlighterFactory key="Simple" implementationClass="com.simpleplugin.SimpleSyntaxHighlighterFactory"/>
     <!-- Add your extensions here -->
   </extensions>
 
