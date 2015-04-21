@@ -15,6 +15,6 @@
 }
 
 Grammar ::=Pattern*
-private Pattern ::= STRING SEPARATOR repeatablePattern|COMMENT|CRLF
-private repeatablePattern ::= orPlusPatten repeatablePattern*
-orPlusPatten ::= STRING (OR|PLUS STRING)*
+private Pattern ::= Rule SEPARATOR repeatablePattern|COMMENT|CRLF
+private repeatablePattern ::= Patten repeatablePattern*
+Patten ::= STRING (OR|PLUS STRING)*

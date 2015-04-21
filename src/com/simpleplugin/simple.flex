@@ -22,24 +22,32 @@ END_OF_LINE_COMMENT=("#"|"!")[^\r\n]*
 
 SEPARATOR= "="
 STRING = [:letter:]*
+RULE = [:letter:]*
 OR = "|"
 PLUS = "+"
 
-%state WAITING_VALUE
+
+%state EXPRESSION
 
 %%
 
-{END_OF_LINE_COMMENT}                           { return SimpleTypes.COMMENT; }
+<YYINITIAL> {END_OF_LINE_COMMENT}               { yybegin(YYINITIAL); return SimpleTypes.COMMENT; }
 
-{STRING}                                        { return SimpleTypes.STRING; }
+<YYINITIAL> {RULE}                              { yybegin(YYINITIAL); return SimpleTypes.RULE; }
 
-{SEPARATOR}                                     { return SimpleTypes.SEPARATOR; }
+<YYINITIAL> {SEPARATOR}                         { yybegin(EXPRESSION); return SimpleTypes.SEPARATOR; }
 
-{OR}                                            { return SimpleTypes.OR;}
+<EXPRESSION>{CRLF}                              { yybegin(YYINITIAL); return SimpleTypes.CRLF; }
 
-{PLUS}                                          { return SimpleTypes.PLUS;}
+<EXPRESSION> {WHITE_SPACE}+                     { yybegin(EXPRESSION); return TokenType.WHITE_SPACE; }
 
-{CRLF}                                          { return SimpleTypes.CRLF; }
+<EXPRESSION> {STRING}                           { yybegin(EXPRESSION); return SimpleTypes.STRING; }
+
+<EXPRESSION>{OR}                                { yybegin(EXPRESSION); return SimpleTypes.OR;}
+
+<EXPRESSION>{PLUS}                              { yybegin(EXPRESSION); return SimpleTypes.PLUS;}
+
+{CRLF}                                          { yybegin(YYINITIAL); return SimpleTypes.CRLF; }
 
 {WHITE_SPACE}+                                  { return TokenType.WHITE_SPACE; }
 

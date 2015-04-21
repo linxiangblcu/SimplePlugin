@@ -20,7 +20,9 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey SEPARATOR = createTextAttributesKey("SIMPLE_SEPARATOR",
         DefaultLanguageHighlighterColors.IDENTIFIER);
 
-    public static final TextAttributesKey STRING = createTextAttributesKey("SIMPLE_STRING", DefaultLanguageHighlighterColors.KEYWORD);
+    public static final TextAttributesKey RULE = createTextAttributesKey("SIMPLE_RULE", DefaultLanguageHighlighterColors.KEYWORD);
+
+    public static final TextAttributesKey STRING = createTextAttributesKey("SIMPLE_STRING", DefaultLanguageHighlighterColors.STRING);
     public static final TextAttributesKey COMMENT = createTextAttributesKey("SIMPLE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
 
     static final TextAttributesKey BAD_CHARACTER = createTextAttributesKey("SIMPLE_BAD_CHARACTER",
@@ -29,6 +31,7 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
 
     private static final TextAttributesKey[] SEPARATOR_KEYS = new TextAttributesKey[]{SEPARATOR};
     private static final TextAttributesKey[] KEY_STRING = new TextAttributesKey[]{STRING};
+    private static final TextAttributesKey[] KEY_RULE = new TextAttributesKey[]{RULE};
     private static final TextAttributesKey[] COMMENT_KEYS = new TextAttributesKey[]{COMMENT};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
     private static final TextAttributesKey[] BAD_CHAR_KEYS = new TextAttributesKey[]{BAD_CHARACTER};
@@ -46,7 +49,9 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
             return SEPARATOR_KEYS;
         } else if (tokenType.equals(SimpleTypes.STRING)) {
             return KEY_STRING;
-        }  else if (tokenType.equals(SimpleTypes.COMMENT)) {
+        } else if (tokenType.equals(SimpleTypes.RULE)) {
+            return KEY_RULE;
+        } else if (tokenType.equals(SimpleTypes.COMMENT)) {
             return COMMENT_KEYS;
         } else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHAR_KEYS;
