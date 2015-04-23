@@ -4,7 +4,6 @@
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
-  psiClassPrefix="Simple"
   psiImplClassSuffix="Impl"
   psiPackage="com.simpleplugin.psi"
   psiImplPackage="com.simpleplugin.psi.impl"
@@ -14,7 +13,22 @@
   tokenTypeClass="com.simpleplugin.psi.SimpleTokenType"
 }
 
-Grammar ::=Pattern*
-private Pattern ::= Rule SEPARATOR repeatablePattern|COMMENT|CRLF
-private repeatablePattern ::= Patten repeatablePattern*
-Patten ::= STRING (OR|PLUS STRING)*
+Grammar ::=simpleRules*
+
+private simpleRules ::= Rule SEPARATOR textPattern featurePattern|COMMENT|CRLF
+
+private textPattern ::= wordstem textPattern*
+
+private wordstem ::= (SINGLEQUOTATION stem SINGLEQUOTATION)|(DOUBLEQUOTATION word DOUBLEQUOTATION)
+
+private featurePattern ::= primaryPattern featurePattern*
+
+private primaryPattern ::= simplePattern (OR primaryPattern)*
+
+private simplePattern ::= teminal (PLUS simplePattern)*
+
+teminal ::= [NOT] FEATURE|LCURLY featurePattern RCURLY
+
+stem ::= [NOT] onestem (OR [NOT] onestem)*
+
+word ::= [NOT] oneword (OR [NOT] oneword)*
